@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Human Annotation Webapp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        div.gallery {
+            margin: 5px;
+            border: 1px solid #ccc;
+            float: left;
+            height: 400px;
+        }
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+        .bigradio{
+            padding-right: 50px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Welcome, {{user_name}}</h1>
+    <h3 style="text-align: center;"><span>You have labeled {{num_imgs_labeled}} images</span>&nbsp;&nbsp;<a href="/logout">>> logout</a></h3>
+    <div class="container">
+      <div class="row">
+        <div class="gallery">
+            <div class="desc">
+                <h4>Product Image ({{product_name}})</h4>
+            </div>
+            <img src="/static/{{product_img}}" alt="" style="max-width:300px;max-height:300px">
+        </div>
+        <div class="gallery">
+            <div class="desc">
+                <h4>Customer Image <span id="index_span">1/{{num_imgs}}</span>
+                    <img class="hidden" id="yes_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Blue_check.svg/220px-Blue_check.svg.png" alt="" style="max-height:20px;max-width:20px">
+                    <img class="hidden" id="no_img" src="https://cdn3.iconfinder.com/data/icons/musthave/256/Delete.png" alt="" style="max-height:20px;max-width:20px">
+                </h4>
+            </div>
+            {% for img in img_list %}
+                {% ifequal forloop.counter  1 %}
+                    <img id="customer_img_{{forloop.counter}}" src="/static/{{img}}" alt="" style="max-width:300px;max-height:300px">
+                {% else %}
+                    <img class="hidden" id="customer_img_{{forloop.counter}}" src="/static/{{img}}" alt="" style="max-width:300px;max-height:300px">
+                {% endifequal %}
+            {% endfor %}
+        </div>
+      </div>
+        <hr>
+      <div class="row">
+        <div class="col-12">
+            <h3>Does customer image match the product image?</h3>
+          <label class="bigradio"><input type="radio" name="selection" value="yes" id="yes_selection">(1) Yes</label>
+            <label class="bigradio"><input type="radio" name="selection" value="no" id="no_selection">(2) No</label>
+        </div>
+      </div>
+    </div>
+
+</body>
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    NUM_IMAGES = {{num_imgs}};
+    PRODUCT_NAME = "{{product_name}}";
+    current_img_index = 1;
+    choices = [];
+</script>
+
+<script type="text/javascript" src="/static/js/main.js">
+</script>
+</html>
