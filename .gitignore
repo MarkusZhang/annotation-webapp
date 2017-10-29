@@ -1,0 +1,6 @@
+db.sqlite3
+*.bat
+*.pyc
+media/
+.idea/
+webapp/__pycache__
